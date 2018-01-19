@@ -1,0 +1,43 @@
+<!-- File: chapter_02/more-directives.html -->
+<!DOCTYPE html>
+<html ng-app="notesApp">
+
+<head>
+    <title>Notes App</title>
+    <style>
+        .done {background-color:green;}
+        .pending {background-color:red;}
+    </style>
+</head>
+
+<body ng-controller="MainCtrl as ctrl">
+    <div ng-repeat="note in ctrl.notes" ng-class="ctrl.getNoteClass(note.done)">
+        <div class="label">{{note.label}}</div>
+        <div class="assignee" ng-show="note.assignee" ng-bind="note.assignee">
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module('notesApp',[])
+        .controller('MainCtrl',[function(){
+            var self = this;
+            self.notes = [
+                        {id: 1, label: 'First Note', done: false, assignee:'Neo'},
+                        {id: 2, label: 'Second Note', done: false, assignee: 'Sophie'},
+                        {id: 3, label: 'Done Note', done: true},
+                        {id: 4, label: 'Last Note', done: false}
+                        ]; 
+
+            self.getNoteClass = function(status){
+                return {
+                    done:status,
+                    pending:!status
+                };
+            };         
+        }]);
+    </script>
+</body>
+
+</html>
